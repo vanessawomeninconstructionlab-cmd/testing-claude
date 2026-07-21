@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoolAir HVAC — Book & Pay Online</title>
+<style>
+  :root {
+    --bg: #eef3f8;
+    --surface: #ffffff;
+    --surface-2: #f6f9fc;
+    --ink: #0e1f2e;
+    --ink-2: #33546c;
+    --muted: #6b8298;
+    --line: #dbe6f0;
+    --brand: #0e7fa3;
+    --brand-strong: #0a5f7c;
+    --brand-soft: #e2f4fb;
+    --warm: #ef6c2e;
+    --warm-soft: #fdeadd;
+    --ok: #12805c;
+    --ok-soft: #d8f3e8;
+    --shadow: 0 18px 50px -20px rgba(8, 40, 66, 0.35);
+    --shadow-sm: 0 6px 20px -10px rgba(8, 40, 66, 0.3);
+    --r: 16px;
+    --maxw: 760px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #071119;
+      --surface: #0f2130;
+      --surface-2: #0b1a26;
+      --ink: #e7f0f7;
+      --ink-2: #a9c2d3;
+      --muted: #7c98ab;
+      --line: #1d3547;
+      --brand: #37c0e6;
+      --brand-strong: #6fd3ef;
+      --brand-soft: #10303f;
+      --warm: #ff8a4c;
+      --warm-soft: #33221a;
+      --ok: #35d6a0;
+      --ok-soft: #10322a;
+      --shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.7);
+      --shadow-sm: 0 6px 20px -12px rgba(0, 0, 0, 0.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #071119; --surface: #0f2130; --surface-2: #0b1a26; --ink: #e7f0f7;
+    --ink-2: #a9c2d3; --muted: #7c98ab; --line: #1d3547; --brand: #37c0e6;
+    --brand-strong: #6fd3ef; --brand-soft: #10303f; --warm: #ff8a4c;
+    --warm-soft: #33221a; --ok: #35d6a0; --ok-soft: #10322a;
+    --shadow: 0 18px 50px -20px rgba(0,0,0,0.7); --shadow-sm: 0 6px 20px -12px rgba(0,0,0,0.7);
+  }
+  :root[data-theme="light"] {
+    --bg: #eef3f8; --surface: #ffffff; --surface-2: #f6f9fc; --ink: #0e1f2e;
+    --ink-2: #33546c; --muted: #6b8298; --line: #dbe6f0; --brand: #0e7fa3;
+    --brand-strong: #0a5f7c; --brand-soft: #e2f4fb; --warm: #ef6c2e;
+    --warm-soft: #fdeadd; --ok: #12805c; --ok-soft: #d8f3e8;
+    --shadow: 0 18px 50px -20px rgba(8,40,66,0.35); --shadow-sm: 0 6px 20px -10px rgba(8,40,66,0.3);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 22px 18px 60px; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* Header */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+  .logo { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -0.02em; font-size: 1.15rem; }
+  .logo .mark {
+    width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 1.3rem;
+    background: linear-gradient(150deg, var(--brand), var(--brand-strong)); color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+  .logo small { display: block; font-weight: 500; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .top-actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+    width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 1rem; display: grid; place-items: center;
+  }
+  .icon-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+  /* Card */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+
+  /* Progress rail */
+  .rail { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  .rail .st { padding: 13px 8px; text-align: center; font-size: 0.78rem; font-weight: 700; color: var(--muted); position: relative; }
+  .rail .st .dot {
+    display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center;
+    background: var(--line); color: var(--muted); font-size: 0.75rem; margin-right: 7px;
+  }
+  .rail .st.on { color: var(--brand-strong); }
+  .rail .st.on .dot { background: var(--brand); color: #fff; }
+  .rail .st.done .dot { background: var(--ok); color: #fff; }
+  .rail .st.done { color: var(--ink-2); }
+  @media (max-width: 560px) { .rail .st .lbl { display: none; } .rail .st .dot { margin: 0; } }
+
+  .pad { padding: 24px; }
+  .step { display: none; }
+  .step.active { display: block; animation: rise 0.35s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .step.active { animation: none; } }
+
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.09em; font-size: 0.72rem; font-weight: 800; color: var(--brand); }
+  .h-lead { font-size: 1.45rem; letter-spacing: -0.02em; margin: 6px 0 4px; }
+  .sub { color: var(--ink-2); margin: 0 0 20px; font-size: 0.95rem; }
+
+  /* Service grid */
+  .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
+  .svc {
+    text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: 13px; padding: 15px;
+    cursor: pointer; display: flex; gap: 12px; align-items: flex-start; transition: border-color .15s, transform .1s, box-shadow .15s;
+  }
+  .svc:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .svc.sel { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+  .svc .em { font-size: 1.6rem; line-height: 1; }
+  .svc .body { flex: 1; min-width: 0; }
+  .svc .cat { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--brand); font-weight: 800; }
+  .svc h3 { font-size: 1rem; margin: 2px 0 3px; letter-spacing: -0.01em; }
+  .svc .d { font-size: 0.82rem; color: var(--ink-2); }
+  .svc .row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; }
+  .svc .price { font-weight: 800; font-size: 1.1rem; }
+  .svc .dur { font-size: 0.76rem; color: var(--muted); }
+
+  /* Dates + slots */
+  .lbl { font-weight: 700; font-size: 0.85rem; margin: 0 0 9px; display: block; }
+  .dates { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+  .dchip {
+    min-width: 76px; border: 1.5px solid var(--line); background: var(--surface); border-radius: 11px; padding: 9px 6px;
+    text-align: center; cursor: pointer; flex-shrink: 0;
+  }
+  .dchip:hover { border-color: var(--brand); }
+  .dchip.sel { border-color: var(--brand); background: var(--brand-soft); }
+  .dchip .dow { font-size: 0.68rem; text-transform: uppercase; color: var(--muted); font-weight: 800; letter-spacing: 0.04em; }
+  .dchip .dnum { font-size: 1.35rem; font-weight: 800; }
+  .dchip .mon { font-size: 0.68rem; color: var(--ink-2); }
+  .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 9px; margin-top: 6px; }
+  .slot { border: 1.5px solid var(--line); background: var(--surface); border-radius: 10px; padding: 11px 4px; font-weight: 700; font-size: 0.9rem; cursor: pointer; color: var(--ink); }
+  .slot:hover:not(:disabled) { border-color: var(--brand); }
+  .slot.sel { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-strong); }
+  .slot:disabled { opacity: 0.38; cursor: not-allowed; text-decoration: line-through; }
+
+  /* Form */
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+  .fg.full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .fgrid { grid-template-columns: 1fr; } }
+  label.fl { font-weight: 600; font-size: 0.82rem; color: var(--ink-2); }
+  input, textarea {
+    font: inherit; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: 10px;
+    background: var(--surface-2); color: var(--ink); width: 100%;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); background: var(--surface); }
+  textarea { resize: vertical; min-height: 72px; }
+
+  /* Summary */
+  .summary { background: var(--surface-2); border: 1px solid var(--line); border-radius: 13px; padding: 16px; }
+  .srow { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.9rem; }
+  .srow .k { color: var(--ink-2); }
+  .srow .v { font-weight: 700; text-align: right; }
+  .stotal { border-top: 1px dashed var(--line); margin-top: 6px; padding-top: 11px; font-size: 1.15rem; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer;
+    font-weight: 700; font-size: 0.98rem; padding: 13px 20px; border-radius: 11px; font-family: inherit; color: #fff;
+    background: var(--brand); transition: filter .15s, transform .05s;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.block { width: 100%; }
+  .btn.warm { background: var(--warm); }
+  .btn.ghost { background: transparent; color: var(--ink-2); border: 1.5px solid var(--line); }
+  .btn.ghost:hover { border-color: var(--brand); color: var(--brand); filter: none; }
+  .nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+
+  .note { font-size: 0.78rem; color: var(--muted); text-align: center; margin: 12px 0 0; }
+  .banner { padding: 11px 14px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 16px; display: flex; gap: 8px; align-items: flex-start; }
+  .banner.info { background: var(--brand-soft); color: var(--brand-strong); }
+  .banner.err { background: var(--warm-soft); color: var(--warm); }
+  .banner.warn { background: var(--warm-soft); color: var(--warm); }
+  .hide { display: none !important; }
+
+  /* Confirmation */
+  .confirm-head { background: linear-gradient(155deg, var(--brand), var(--brand-strong)); color: #fff; padding: 30px 24px; text-align: center; }
+  .confirm-head .big { font-size: 2.6rem; }
+  .ref { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.08em; }
+  .pay-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 14px; }
+  .test-tag { font-size: 0.7rem; background: var(--warm-soft); color: var(--warm); padding: 3px 8px; border-radius: 999px; font-weight: 800; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
+  .b-paid { background: var(--ok-soft); color: var(--ok); }
+
+  /* Modal */
+  .overlay { position: fixed; inset: 0; background: rgba(6, 20, 30, 0.55); display: none; align-items: center; justify-content: center; padding: 18px; z-index: 100; }
+  .overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); width: min(560px, 100%); max-height: 88vh; overflow-y: auto; }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .modal-body { padding: 20px; }
+  .bk-item { border: 1px solid var(--line); border-radius: 11px; padding: 12px; margin-bottom: 10px; font-size: 0.86rem; }
+  .bk-item .r1 { display: flex; justify-content: space-between; font-weight: 700; }
+  .foot { text-align: center; margin-top: 22px; font-size: 0.8rem; color: var(--muted); }
+  .foot a { color: var(--brand); cursor: pointer; text-decoration: none; }
+  .kbd { font-family: ui-monospace, Menlo, monospace; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">
+      <span class="mark">🌬️</span>
+      <span id="bizName">CoolAir HVAC<small id="bizTag">Heating · Cooling · Air Quality</small></span>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" title="Toggle light/dark" aria-label="Toggle theme">◐</button>
+      <button class="icon-btn" id="ownerBtn" title="Owner dashboard" aria-label="Owner dashboard">⚙️</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="rail">
+      <div class="st on" data-r="0"><span class="dot">1</span><span class="lbl">Service</span></div>
+      <div class="st" data-r="1"><span class="dot">2</span><span class="lbl">Schedule</span></div>
+      <div class="st" data-r="2"><span class="dot">3</span><span class="lbl">Details</span></div>
+      <div class="st" data-r="3"><span class="dot">4</span><span class="lbl">Pay</span></div>
+    </div>
+
+    <div class="pad">
+      <!-- STEP 1: Service -->
+      <section class="step active" data-step="0">
+        <p class="eyebrow">Book online in 2 minutes</p>
+        <h2 class="h-lead">What can we help you with?</h2>
+        <p class="sub">Choose a service. Prices are upfront — diagnostic &amp; consult fees apply toward the work.</p>
+        <div class="svc-grid" id="svcGrid"></div>
+        <div class="nav"><span></span><button class="btn" id="to1" disabled>Continue →</button></div>
+      </section>
+
+      <!-- STEP 2: Schedule -->
+      <section class="step" data-step="1">
+        <p class="eyebrow">Step 2</p>
+        <h2 class="h-lead">Pick a date &amp; time</h2>
+        <p class="sub">Real availability — we book up to two crews per slot.</p>
+        <label class="lbl">Date</label>
+        <div class="dates" id="dates"></div>
+        <label class="lbl" style="margin-top:20px">Time</label>
+        <div class="slots" id="slots"><p class="note" style="text-align:left">Select a date to see open times.</p></div>
+        <div class="nav"><button class="btn ghost" data-back="0">← Back</button><button class="btn" id="to2" disabled>Continue →</button></div>
+      </section>
+
+      <!-- STEP 3: Details -->
+      <section class="step" data-step="2">
+        <p class="eyebrow">Step 3</p>
+        <h2 class="h-lead">Where &amp; who?</h2>
+        <p class="sub">We'll send a confirmation and reminders to your email.</p>
+        <div id="detErr" class="banner err hide"></div>
+        <form id="detForm">
+          <div class="fgrid">
+            <div class="fg"><label class="fl" for="f_name">Full name *</label><input id="f_name" required autocomplete="name"></div>
+            <div class="fg"><label class="fl" for="f_phone">Phone *</label><input id="f_phone" required autocomplete="tel" placeholder="(555) 123-4567"></div>
+            <div class="fg full"><label class="fl" for="f_email">Email *</label><input id="f_email" type="email" required autocomplete="email"></div>
+            <div class="fg full"><label class="fl" for="f_addr">Service address *</label><input id="f_addr" required autocomplete="street-address" placeholder="123 Main St"></div>
+            <div class="fg"><label class="fl" for="f_city">City *</label><input id="f_city" required autocomplete="address-level2"></div>
+            <div class="fg"><label class="fl" for="f_zip">ZIP *</label><input id="f_zip" required autocomplete="postal-code"></div>
+            <div class="fg full"><label class="fl" for="f_notes">Anything we should know? (optional)</label><textarea id="f_notes" placeholder="Gate code, pets, describe the issue…"></textarea></div>
+          </div>
+        </form>
+        <div class="nav"><button class="btn ghost" data-back="1">← Back</button><button class="btn" id="to3">Review &amp; pay →</button></div>
+      </section>
+
+      <!-- STEP 4: Pay -->
+      <section class="step" data-step="3">
+        <p class="eyebrow">Step 4</p>
+        <h2 class="h-lead">Confirm &amp; pay</h2>
+        <p class="sub">Review your booking, then pay securely to lock it in.</p>
+        <div class="summary" id="paySummary"></div>
+
+        <div id="stripePay" class="hide">
+          <button class="btn warm block" id="stripeBtn" style="margin-top:16px">Pay securely →</button>
+          <p class="note">Opens secure Stripe checkout in a new tab. After paying, come back and tap “I’ve paid”.</p>
+          <button class="btn ghost block" id="stripeDone" style="margin-top:8px">I’ve completed payment →</button>
+        </div>
+
+        <div id="demoPay">
+          <div class="pay-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <strong>Card details</strong><span class="test-tag">DEMO — no real charge</span>
+            </div>
+            <div class="fgrid">
+              <div class="fg full"><label class="fl">Card number</label><input id="c_num" value="4242 4242 4242 4242" inputmode="numeric"></div>
+              <div class="fg"><label class="fl">Expiry</label><input id="c_exp" value="12/28"></div>
+              <div class="fg"><label class="fl">CVC</label><input id="c_cvc" value="123"></div>
+            </div>
+          </div>
+          <button class="btn block" id="payBtn" style="margin-top:16px"><span id="payTxt">Pay &amp; confirm booking</span></button>
+        </div>
+        <div class="nav"><button class="btn ghost" data-back="2">← Back</button><span></span></div>
+      </section>
+
+      <!-- STEP 5: Done -->
+      <section class="step" data-step="4" style="margin:-24px;">
+        <div class="confirm-head">
+          <div class="big">✅</div>
+          <h2 style="margin:6px 0 4px">You're booked!</h2>
+          <p style="margin:0;opacity:.9">A confirmation is on its way to your email.</p>
+        </div>
+        <div style="padding:24px">
+          <p class="note" style="margin:0 0 4px">Your booking reference</p>
+          <p class="ref tnum" id="doneRef" style="text-align:center;margin:0 0 18px"></p>
+          <div class="summary" id="doneSummary"></div>
+          <div class="banner info" style="margin-top:16px">📅 A certified technician will arrive in your scheduled window. Need to reschedule? Call us with your reference.</div>
+          <button class="btn block" id="againBtn" style="margin-top:14px">Book another service</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span id="footContact">📞 (800) 555-1234 · Licensed &amp; insured</span><br>
+    <a id="ownerLink">Owner dashboard</a>
+  </div>
+</div>
+
+<!-- Owner modal -->
+<div class="overlay" id="ownerOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <strong>⚙️ Owner dashboard</strong>
+      <button class="icon-btn" id="ownerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="banner warn">Bookings are saved in <em>this browser</em> only. To collect bookings from every customer in one place, use the hosted server version (see the chat) — this page is your instant, shareable storefront.</div>
+
+      <h3 style="font-size:1rem;margin-bottom:4px">Business details</h3>
+      <p class="sub" style="font-size:0.85rem;margin-bottom:12px">These appear to your customers on the page.</p>
+      <div class="fgrid">
+        <div class="fg full"><label class="fl">Business name</label><input id="s_name" placeholder="CoolAir HVAC"></div>
+        <div class="fg"><label class="fl">Phone</label><input id="s_phone" placeholder="(800) 555-1234"></div>
+        <div class="fg"><label class="fl">Contact email</label><input id="s_email" placeholder="service@you.com"></div>
+        <div class="fg full">
+          <label class="fl">Stripe Payment Link (optional — enables real payments)</label>
+          <input id="s_stripe" placeholder="https://buy.stripe.com/...">
+        </div>
+      </div>
+      <p class="sub" style="font-size:0.8rem;margin-top:8px">
+        Create a Payment Link at <span class="kbd">dashboard.stripe.com → Payment Links</span>, paste it here, and the Pay button takes real cards. Leave blank to keep demo mode.
+      </p>
+      <button class="btn block" id="saveSettings" style="margin-top:12px">Save settings</button>
+
+      <h3 style="font-size:1rem;margin:24px 0 4px">Bookings on this device (<span id="bkCount">0</span>)</h3>
+      <div id="bkList"></div>
+      <button class="btn ghost block" id="clearBk" style="margin-top:8px">Clear all bookings</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var LS_BK = "coolair_bookings_v1", LS_SET = "coolair_settings_v1", LS_THEME = "coolair_theme";
+
+  var SERVICES = [
+    { id:"ac-tune", em:"❄️", cat:"Maintenance", name:"A/C Tune-Up & Inspection", price:89, dur:60, d:"21-point precision tune-up so your system runs efficiently all summer." },
+    { id:"furnace-tune", em:"🔥", cat:"Maintenance", name:"Furnace Tune-Up & Safety Check", price:89, dur:60, d:"Full heating inspection with burner cleaning and CO safety test." },
+    { id:"ac-repair", em:"🛠️", cat:"Repair", name:"A/C Repair Diagnostic", price:99, dur:90, d:"Not cooling? We diagnose the fault and give an upfront repair quote." },
+    { id:"heat-repair", em:"🌡️", cat:"Repair", name:"Heating System Repair", price:99, dur:90, d:"No heat or uneven heating? We troubleshoot and get you running again." },
+    { id:"install", em:"🏠", cat:"Installation", name:"New System Consultation", price:49, dur:60, d:"In-home assessment & written estimate for a new A/C, furnace, or heat pump." },
+    { id:"duct", em:"💨", cat:"Air Quality", name:"Air Duct Cleaning", price:249, dur:120, d:"Deep-clean ductwork to remove dust and allergens and improve airflow." },
+    { id:"thermostat", em:"📱", cat:"Installation", name:"Smart Thermostat Install", price:129, dur:60, d:"Professional install & app setup of a Wi-Fi smart thermostat." },
+    { id:"emergency", em:"🚨", cat:"Repair", name:"Emergency No-Cool / No-Heat", price:149, dur:90, d:"Same-day priority dispatch when your system fails." }
+  ];
+  var TIMES = ["08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"];
+  var CREW = 2;
+
+  var st = { step:0, service:null, date:null, time:null, details:{}, ref:null };
+  var $ = function (s, r) { return (r||document).querySelector(s); };
+  var settings = loadSettings();
+
+  // ---------- storage ----------
+  function loadBk(){ try { return JSON.parse(localStorage.getItem(LS_BK)||"[]"); } catch(e){ return []; } }
+  function saveBk(a){ localStorage.setItem(LS_BK, JSON.stringify(a)); }
+  function loadSettings(){ try { return JSON.parse(localStorage.getItem(LS_SET)||"{}"); } catch(e){ return {}; } }
+  function saveSettings(s){ localStorage.setItem(LS_SET, JSON.stringify(s)); }
+
+  // ---------- helpers ----------
+  function money(n){ return "$"+n.toFixed(2); }
+  function pad(n){ return (n<10?"0":"")+n; }
+  function dstr(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function fmtTime(t){ var p=t.split(":"),h=+p[0],ap=h>=12?"PM":"AM",hr=((h+11)%12)+1; return hr+":"+p[1]+" "+ap; }
+  function fmtDateLong(s){ var d=new Date(s+"T12:00:00"); return d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"}); }
+  function makeRef(){ var c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",r="CA-"; for(var i=0;i<6;i++) r+=c[Math.floor(Math.random()*c.length)]; return r; }
+  function isEmail(s){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function slotCount(date,time){ return loadBk().filter(function(b){return b.date===date&&b.time===time;}).length; }
+
+  // ---------- theme ----------
+  function applyTheme(t){ document.documentElement.setAttribute("data-theme", t); localStorage.setItem(LS_THEME, t); }
+  (function(){ var t=localStorage.getItem(LS_THEME); if(t) applyTheme(t); })();
+  $("#themeBtn").onclick = function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    if(!cur){ cur = matchMedia("(prefers-color-scheme: dark)").matches ? "dark":"light"; }
+    applyTheme(cur==="dark"?"light":"dark");
+  };
+
+  // ---------- branding from settings ----------
+  function applyBranding(){
+    var name = settings.name || "CoolAir HVAC";
+    $("#bizName").childNodes[0].nodeValue = name;
+    $("#footContact").innerHTML = "📞 "+esc(settings.phone||"(800) 555-1234")+" · Licensed &amp; insured";
+    document.title = name + " — Book & Pay Online";
+  }
+
+  // ---------- render services ----------
+  function renderServices(){
+    var g = $("#svcGrid"); g.innerHTML="";
+    SERVICES.forEach(function(s){
+      var b=document.createElement("button"); b.type="button"; b.className="svc"; b.setAttribute("data-id",s.id);
+      b.innerHTML='<span class="em">'+s.em+'</span><span class="body"><span class="cat">'+esc(s.cat)+'</span>'+
+        '<h3>'+esc(s.name)+'</h3><span class="d">'+esc(s.d)+'</span>'+
+        '<span class="row"><span class="price tnum">'+money(s.price)+'</span><span class="dur">'+s.dur+' min</span></span></span>';
+      b.onclick=function(){
+        st.service=s;
+        Array.prototype.forEach.call(g.children,function(c){c.classList.remove("sel");});
+        b.classList.add("sel"); $("#to1").disabled=false;
+      };
+      g.appendChild(b);
+    });
+  }
+
+  // ---------- dates & slots ----------
+  function renderDates(){
+    var wrap=$("#dates"); wrap.innerHTML="";
+    var start=new Date(); start.setHours(12,0,0,0);
+    var made=0, i=1;
+    while(made<14 && i<40){
+      var d=new Date(start); d.setDate(d.getDate()+i); i++;
+      if(d.getDay()===0){ continue; } // closed Sundays
+      var ds=dstr(d); made++;
+      var chip=document.createElement("div"); chip.className="dchip"; chip.setAttribute("data-d",ds);
+      chip.innerHTML='<div class="dow">'+d.toLocaleDateString(undefined,{weekday:"short"})+'</div>'+
+        '<div class="dnum tnum">'+d.getDate()+'</div><div class="mon">'+d.toLocaleDateString(undefined,{month:"short"})+'</div>';
+      chip.onclick=function(){ selectDate(this.getAttribute("data-d"), this); };
+      wrap.appendChild(chip);
+    }
+  }
+  function selectDate(ds,chip){
+    st.date=ds; st.time=null; $("#to2").disabled=true;
+    Array.prototype.forEach.call($("#dates").children,function(c){c.classList.remove("sel");});
+    chip.classList.add("sel");
+    var g=$("#slots"); g.innerHTML="";
+    TIMES.forEach(function(t){
+      var full = slotCount(ds,t) >= CREW;
+      var b=document.createElement("button"); b.type="button"; b.className="slot"; b.textContent=fmtTime(t); b.disabled=full;
+      b.onclick=function(){
+        st.time=t;
+        Array.prototype.forEach.call(g.children,function(c){c.classList.remove("sel");});
+        b.classList.add("sel"); $("#to2").disabled=false;
+      };
+      g.appendChild(b);
+    });
+  }
+
+  // ---------- summaries ----------
+  function summaryHTML(){
+    var s=st.service;
+    return '<div class="srow"><span class="k">Service</span><span class="v">'+s.em+' '+esc(s.name)+'</span></div>'+
+      '<div class="srow"><span class="k">Date</span><span class="v">'+fmtDateLong(st.date)+'</span></div>'+
+      '<div class="srow"><span class="k">Time</span><span class="v">'+fmtTime(st.time)+'</span></div>'+
+      '<div class="srow"><span class="k">Duration</span><span class="v">'+s.dur+' min</span></div>'+
+      '<div class="srow stotal"><span class="k">Due today</span><span class="v tnum">'+money(s.price)+'</span></div>';
+  }
+  function fillPay(){
+    $("#paySummary").innerHTML=summaryHTML();
+    if(settings.stripe){
+      $("#stripePay").classList.remove("hide"); $("#demoPay").classList.add("hide");
+    } else {
+      $("#stripePay").classList.add("hide"); $("#demoPay").classList.remove("hide");
+    }
+  }
+
+  // ---------- steps ----------
+  function goto(n){
+    st.step=n;
+    Array.prototype.forEach.call(document.querySelectorAll(".step"),function(el){
+      el.classList.toggle("active", +el.getAttribute("data-step")===n);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".rail .st"),function(el){
+      var r=+el.getAttribute("data-r"); el.classList.toggle("on",r===n); el.classList.toggle("done",r<n);
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  // ---------- booking finalize ----------
+  function finalize(provider){
+    st.ref=makeRef();
+    var s=st.service;
+    var booking={ ref:st.ref, serviceId:s.id, serviceName:s.name, serviceEm:s.em, price:s.price,
+      date:st.date, time:st.time, name:st.details.name, email:st.details.email, phone:st.details.phone,
+      address:st.details.address, city:st.details.city, zip:st.details.zip, notes:st.details.notes,
+      paid:true, provider:provider, created: dstr(new Date())+" "+new Date().toTimeString().slice(0,5) };
+    var all=loadBk(); all.push(booking); saveBk(all);
+    $("#doneRef").textContent=st.ref;
+    $("#doneSummary").innerHTML=summaryHTML()+
+      '<div class="srow"><span class="k">Name</span><span class="v">'+esc(booking.name)+'</span></div>'+
+      '<div class="srow"><span class="k">Address</span><span class="v">'+esc(booking.address)+', '+esc(booking.city)+' '+esc(booking.zip)+'</span></div>'+
+      '<div class="srow"><span class="k">Payment</span><span class="v"><span class="badge b-paid">Paid</span></span></div>';
+    goto(4);
+  }
+
+  // ---------- wire nav ----------
+  $("#to1").onclick=function(){ goto(1); };
+  $("#to2").onclick=function(){ goto(2); };
+  $("#to3").onclick=function(){
+    var f={ name:$("#f_name").value.trim(), phone:$("#f_phone").value.trim(), email:$("#f_email").value.trim(),
+      address:$("#f_addr").value.trim(), city:$("#f_city").value.trim(), zip:$("#f_zip").value.trim(), notes:$("#f_notes").value.trim() };
+    var err="";
+    if(!f.name||!f.phone||!f.email||!f.address||!f.city||!f.zip) err="Please fill in all required fields.";
+    else if(!isEmail(f.email)) err="Please enter a valid email address.";
+    if(err){ var e=$("#detErr"); e.textContent=err; e.classList.remove("hide"); return; }
+    $("#detErr").classList.add("hide"); st.details=f; fillPay(); goto(3);
+  };
+  Array.prototype.forEach.call(document.querySelectorAll("[data-back]"),function(b){
+    b.onclick=function(){ goto(+b.getAttribute("data-back")); };
+  });
+
+  $("#payBtn").onclick=function(){
+    var btn=$("#payBtn"); btn.disabled=true; $("#payTxt").textContent="Processing…";
+    setTimeout(function(){ finalize("demo"); btn.disabled=false; $("#payTxt").textContent="Pay & confirm booking"; }, 850);
+  };
+  $("#stripeBtn").onclick=function(){ if(settings.stripe) window.open(settings.stripe,"_blank","noopener"); };
+  $("#stripeDone").onclick=function(){ finalize("stripe"); };
+  $("#againBtn").onclick=function(){
+    st={ step:0, service:null, date:null, time:null, details:{}, ref:null };
+    $("#svcGrid").querySelectorAll(".sel").forEach(function(c){c.classList.remove("sel");});
+    $("#to1").disabled=true; $("#to2").disabled=true;
+    $("#detForm").reset(); $("#slots").innerHTML='<p class="note" style="text-align:left">Select a date to see open times.</p>';
+    Array.prototype.forEach.call($("#dates").children,function(c){c.classList.remove("sel");});
+    goto(0);
+  };
+
+  // ---------- owner dashboard ----------
+  function openOwner(){
+    $("#s_name").value=settings.name||""; $("#s_phone").value=settings.phone||"";
+    $("#s_email").value=settings.email||""; $("#s_stripe").value=settings.stripe||"";
+    renderBookingsList(); $("#ownerOverlay").classList.add("open");
+  }
+  function renderBookingsList(){
+    var all=loadBk().slice().reverse(); $("#bkCount").textContent=all.length;
+    var list=$("#bkList");
+    if(!all.length){ list.innerHTML='<p class="note" style="text-align:left">No bookings yet.</p>'; return; }
+    list.innerHTML=all.map(function(b){
+      return '<div class="bk-item"><div class="r1"><span>'+esc(b.ref)+'</span><span class="tnum">'+money(b.price)+' <span class="badge b-paid">Paid</span></span></div>'+
+        '<div>'+b.serviceEm+' '+esc(b.serviceName)+'</div>'+
+        '<div style="color:var(--ink-2)">'+fmtDateLong(b.date)+' · '+fmtTime(b.time)+'</div>'+
+        '<div style="color:var(--ink-2)">'+esc(b.name)+' · '+esc(b.phone)+' · '+esc(b.email)+'</div>'+
+        '<div style="color:var(--muted)">'+esc(b.address)+', '+esc(b.city)+' '+esc(b.zip)+(b.notes?' — '+esc(b.notes):'')+'</div></div>';
+    }).join("");
+  }
+  $("#ownerBtn").onclick=openOwner;
+  $("#ownerLink").onclick=openOwner;
+  $("#ownerClose").onclick=function(){ $("#ownerOverlay").classList.remove("open"); };
+  $("#ownerOverlay").onclick=function(e){ if(e.target===this) this.classList.remove("open"); };
+  $("#saveSettings").onclick=function(){
+    settings={ name:$("#s_name").value.trim(), phone:$("#s_phone").value.trim(),
+      email:$("#s_email").value.trim(), stripe:$("#s_stripe").value.trim() };
+    saveSettings(settings); applyBranding();
+    var btn=$("#saveSettings"); btn.textContent="Saved ✓"; setTimeout(function(){btn.textContent="Save settings";},1400);
+  };
+  $("#clearBk").onclick=function(){ if(confirm("Delete all bookings stored in this browser?")){ saveBk([]); renderBookingsList(); } };
+
+  // ---------- init ----------
+  renderServices(); renderDates(); applyBranding();
+})();
+</script>
+</body>
+</html>
