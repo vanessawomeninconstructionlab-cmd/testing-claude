@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Checkout — CoolAir HVAC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="logo">🌬️</span> CoolAir HVAC</a>
+      <span class="muted">🔒 Secure checkout</span>
+    </div>
+  </header>
+
+  <div class="receipt" style="margin-top:50px">
+    <div class="receipt-head">
+      <div class="check">💳</div>
+      <h2 style="margin:8px 0 2px">Complete your payment</h2>
+      <p style="margin:0; opacity:.85">Demo checkout — no real card is charged</p>
+    </div>
+    <div class="receipt-body">
+      <div id="loading" class="muted center">Loading booking…</div>
+
+      <div id="payArea" style="display:none">
+        <div class="summary" style="margin-bottom:22px">
+          <div class="summary-row"><span class="k">Service</span><span class="v" id="svc"></span></div>
+          <div class="summary-row"><span class="k">When</span><span class="v" id="when"></span></div>
+          <div class="summary-row"><span class="k">Reference</span><span class="v" id="ref"></span></div>
+          <div class="summary-row summary-total"><span class="k">Total due</span><span class="v" id="amt"></span></div>
+        </div>
+
+        <div id="payError" class="banner banner-error" style="display:none"></div>
+
+        <form id="cardForm">
+          <div class="form-group full" style="margin-bottom:14px">
+            <label for="card">Card number</label>
+            <input id="card" inputmode="numeric" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242" />
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="exp">Expiry</label>
+              <input id="exp" placeholder="MM/YY" value="12/28" />
+            </div>
+            <div class="form-group">
+              <label for="cvc">CVC</label>
+              <input id="cvc" placeholder="123" value="123" />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" style="margin-top:20px" id="payNow" type="button">
+            <span id="payNowText">Pay <span id="payAmt"></span></span>
+          </button>
+          <p class="muted center" style="font-size:.8rem;margin-top:12px">🔒 This is a simulated payment for demonstration. Test card is pre-filled.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const reference = params.get('reference');
+
+    async function load() {
+      if (!reference) { location.href = '/'; return; }
+      const res = await fetch(`/api/bookings/${reference}`);
+      if (!res.ok) { location.href = '/'; return; }
+      const { booking } = await res.json();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('payArea').style.display = 'block';
+      document.getElementById('svc').textContent = booking.service ? `${booking.service.icon} ${booking.service.name}` : '';
+      const d = new Date(`${booking.scheduled_date}T${booking.scheduled_time}:00`);
+      document.getElementById('when').textContent = d.toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      document.getElementById('ref').textContent = booking.reference;
+      document.getElementById('amt').textContent = booking.amount_display;
+      document.getElementById('payAmt').textContent = booking.amount_display;
+
+      if (booking.payment_status === 'paid') {
+        location.href = `/confirmation.html?reference=${reference}`;
+      }
+    }
+
+    async function pay() {
+      const btn = document.getElementById('payNow');
+      btn.disabled = true;
+      document.getElementById('payNowText').innerHTML = '<span class="spinner"></span> Processing…';
+      try {
+        const res = await fetch('/api/payments/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reference }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Payment failed');
+        location.href = `/confirmation.html?reference=${reference}`;
+      } catch (err) {
+        const e = document.getElementById('payError');
+        e.textContent = err.message; e.style.display = 'block';
+        btn.disabled = false;
+        document.getElementById('payNowText').textContent = 'Try again';
+      }
+    }
+
+    document.getElementById('payNow').addEventListener('click', pay);
+    load();
+  </script>
+</body>
+</html>

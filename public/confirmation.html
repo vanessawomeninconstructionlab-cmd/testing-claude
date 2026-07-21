@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed — CoolAir HVAC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="logo">🌬️</span> CoolAir HVAC</a>
+      <a class="header-nav" href="/">← Back to home</a>
+    </div>
+  </header>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <div class="check">✅</div>
+      <h2 style="margin:10px 0 4px">You're all booked!</h2>
+      <p style="margin:0; opacity:.9">A confirmation has been sent to your email.</p>
+    </div>
+    <div class="receipt-body">
+      <div id="loading" class="muted center">Loading your confirmation…</div>
+      <div id="details" style="display:none">
+        <p class="center muted" style="margin-top:0">Your booking reference</p>
+        <p class="center ref" id="ref"></p>
+
+        <div class="summary" style="margin-top:20px">
+          <div class="summary-row"><span class="k">Service</span><span class="v" id="svc"></span></div>
+          <div class="summary-row"><span class="k">Date</span><span class="v" id="date"></span></div>
+          <div class="summary-row"><span class="k">Time</span><span class="v" id="time"></span></div>
+          <div class="summary-row"><span class="k">Address</span><span class="v" id="addr"></span></div>
+          <div class="summary-row"><span class="k">Status</span><span class="v"><span id="status" class="badge"></span> <span id="paid" class="badge"></span></span></div>
+          <div class="summary-row summary-total"><span class="k">Paid</span><span class="v" id="amt"></span></div>
+        </div>
+
+        <div class="banner banner-ok" style="margin-top:20px">
+          📅 <strong>What's next?</strong> Your technician will arrive within the scheduled window. Need to reschedule? Call <a href="tel:+18005551234">(800) 555-1234</a> with your reference.
+        </div>
+
+        <div class="center" style="margin-top:22px">
+          <button class="btn btn-ghost" onclick="window.print()">🖨️ Print receipt</button>
+          <a class="btn btn-primary" href="/">Book another service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const reference = new URLSearchParams(location.search).get('reference');
+    const badgeClass = { pending: 'badge-pending', confirmed: 'badge-confirmed', completed: 'badge-completed', cancelled: 'badge-cancelled' };
+
+    async function load() {
+      if (!reference) { location.href = '/'; return; }
+      const res = await fetch(`/api/bookings/${reference}`);
+      if (!res.ok) { location.href = '/'; return; }
+      const { booking } = await res.json();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('details').style.display = 'block';
+      document.getElementById('ref').textContent = booking.reference;
+      document.getElementById('svc').textContent = booking.service ? `${booking.service.icon} ${booking.service.name}` : '';
+      const d = new Date(`${booking.scheduled_date}T${booking.scheduled_time}:00`);
+      document.getElementById('date').textContent = d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      document.getElementById('time').textContent = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      document.getElementById('addr').textContent = `${booking.address}, ${booking.city} ${booking.zip}`;
+      document.getElementById('amt').textContent = booking.amount_display;
+
+      const st = document.getElementById('status');
+      st.textContent = booking.status;
+      st.className = 'badge ' + (badgeClass[booking.status] || 'badge-pending');
+
+      const paid = document.getElementById('paid');
+      paid.textContent = booking.payment_status === 'paid' ? 'paid' : 'unpaid';
+      paid.className = 'badge ' + (booking.payment_status === 'paid' ? 'badge-paid' : 'badge-unpaid');
+    }
+    load();
+  </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — CoolAir HVAC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="logo">🌬️</span> CoolAir HVAC <small>Staff dashboard</small></a>
+      <div class="header-nav">
+        <a href="/">View site</a>
+        <button class="btn btn-ghost" id="logout" style="display:none">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login -->
+  <div id="login" class="login-box">
+    <h2 style="margin-top:0">Staff login</h2>
+    <p class="muted">Enter your admin token to view bookings.</p>
+    <div id="loginError" class="banner banner-error" style="display:none"></div>
+    <div class="form-group">
+      <label for="token">Admin token</label>
+      <input id="token" type="password" placeholder="admin" />
+    </div>
+    <button class="btn btn-primary btn-block mt-2" id="loginBtn">Log in</button>
+    <p class="muted" style="font-size:.8rem;margin-top:14px">Default token is <code>admin</code> (set <code>ADMIN_TOKEN</code> in .env to change).</p>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dash" class="container section" style="display:none">
+    <div class="section-head" style="text-align:left;margin-bottom:24px">
+      <h2 style="margin-bottom:4px">Bookings</h2>
+      <p style="margin:0" class="muted">All appointments, newest scheduled first.</p>
+    </div>
+
+    <div class="admin-stats">
+      <div class="stat-card"><div class="n" id="statTotal">0</div><div class="l">Total bookings</div></div>
+      <div class="stat-card"><div class="n" id="statUpcoming">0</div><div class="l">Active / upcoming</div></div>
+      <div class="stat-card"><div class="n" id="statRevenue">$0.00</div><div class="l">Revenue collected</div></div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Ref</th><th>When</th><th>Service</th><th>Customer</th><th>Address</th><th>Amount</th><th>Payment</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p id="empty" class="muted center mt-2" style="display:none">No bookings yet.</p>
+  </div>
+
+  <script>
+    const badgeClass = { pending: 'badge-pending', confirmed: 'badge-confirmed', completed: 'badge-completed', cancelled: 'badge-cancelled' };
+    let token = sessionStorage.getItem('adminToken') || '';
+
+    async function api(path, opts = {}) {
+      return fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', 'x-admin-token': token, ...(opts.headers || {}) } });
+    }
+
+    async function loadDash() {
+      const res = await api('/api/admin/bookings');
+      if (res.status === 401) { showLogin('Invalid token.'); return; }
+      const { bookings, stats } = await res.json();
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('dash').style.display = 'block';
+      document.getElementById('logout').style.display = 'inline-flex';
+
+      document.getElementById('statTotal').textContent = stats.total;
+      document.getElementById('statUpcoming').textContent = stats.upcoming;
+      document.getElementById('statRevenue').textContent = stats.revenue_display;
+
+      const tbody = document.getElementById('rows');
+      tbody.innerHTML = '';
+      document.getElementById('empty').style.display = bookings.length ? 'none' : 'block';
+
+      for (const b of bookings) {
+        const tr = document.createElement('tr');
+        const when = new Date(`${b.scheduled_date}T${b.scheduled_time}:00`)
+          .toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+        const options = ['pending', 'confirmed', 'completed', 'cancelled']
+          .map((s) => `<option value="${s}" ${s === b.status ? 'selected' : ''}>${s}</option>`).join('');
+        tr.innerHTML = `
+          <td><strong>${b.reference}</strong></td>
+          <td>${when}</td>
+          <td>${b.service_icon || ''} ${b.service_name || ''}</td>
+          <td>${b.customer_name}<br><span class="muted" style="font-size:.8rem">${b.phone}</span></td>
+          <td style="max-width:180px">${b.address}, ${b.city} ${b.zip}</td>
+          <td>${b.amount_display}</td>
+          <td><span class="badge ${b.payment_status === 'paid' ? 'badge-paid' : 'badge-unpaid'}">${b.payment_status}</span></td>
+          <td><select data-ref="${b.reference}" class="statusSel">${options}</select></td>`;
+        tbody.appendChild(tr);
+      }
+
+      document.querySelectorAll('.statusSel').forEach((sel) => {
+        sel.addEventListener('change', async (e) => {
+          await api(`/api/admin/bookings/${e.target.dataset.ref}/status`, {
+            method: 'POST', body: JSON.stringify({ status: e.target.value }),
+          });
+          loadDash();
+        });
+      });
+    }
+
+    function showLogin(msg) {
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('dash').style.display = 'none';
+      if (msg) { const e = document.getElementById('loginError'); e.textContent = msg; e.style.display = 'block'; }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      token = document.getElementById('token').value.trim();
+      sessionStorage.setItem('adminToken', token);
+      loadDash();
+    });
+    document.getElementById('token').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('loginBtn').click(); });
+    document.getElementById('logout').addEventListener('click', () => { sessionStorage.removeItem('adminToken'); token = ''; showLogin(); });
+
+    if (token) loadDash(); else showLogin();
+  </script>
+</body>
+</html>

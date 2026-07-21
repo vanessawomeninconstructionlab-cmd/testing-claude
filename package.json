@@ -1,0 +1,22 @@
+{
+  "name": "coolair-hvac-booking",
+  "version": "1.0.0",
+  "description": "End-to-end HVAC service booking and payment app: customers browse services, book a time slot, and pay online.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node src/seed.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2",
+    "stripe": "^17.5.0"
+  },
+  "license": "MIT"
+}

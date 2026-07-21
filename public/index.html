@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoolAir HVAC — Book Heating & Cooling Service Online</title>
+  <meta name="description" content="Book professional HVAC installation, repair, and maintenance online. Pick a time, pay securely, done." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">
+        <span class="logo">🌬️</span>
+        <span>CoolAir HVAC<small>Heating &middot; Cooling &middot; Air Quality</small></span>
+      </a>
+      <nav class="header-nav">
+        <a href="#services">Services</a>
+        <a href="#how">How it works</a>
+        <a class="phone" href="tel:+18005551234">📞 (800) 555-1234</a>
+        <a class="btn btn-primary" href="#book">Book now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <p class="eyebrow" style="color:#7dd3fc">Licensed &middot; Insured &middot; 5-Star Rated</p>
+        <h1>Comfort is one click away.</h1>
+        <p>Book trusted HVAC service in under two minutes — choose your service, pick a time that works, and pay securely online. No phone tag required.</p>
+        <div class="pills">
+          <span class="pill">✅ Same-week appointments</span>
+          <span class="pill">✅ Upfront pricing</span>
+          <span class="pill">✅ Certified technicians</span>
+        </div>
+        <div style="margin-top:28px">
+          <a class="btn btn-accent" href="#book">Book your appointment →</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Why homeowners choose us</h3>
+        <p>Over 12,000 homes serviced across the region with transparent, guaranteed work.</p>
+        <div class="summary-row"><span class="k">⭐ Average rating</span><span class="v">4.9 / 5</span></div>
+        <div class="summary-row"><span class="k">🕒 Typical response</span><span class="v">Same day</span></div>
+        <div class="summary-row"><span class="k">🛡️ Workmanship warranty</span><span class="v">1 year</span></div>
+        <div class="summary-row"><span class="k">💳 Secure payment</span><span class="v">Online checkout</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking wizard -->
+  <section class="section" id="book">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Book online</p>
+        <h2>Schedule your service</h2>
+        <p>Three quick steps. You'll get an instant confirmation and reference number.</p>
+      </div>
+
+      <div id="demoBanner" class="banner banner-info" style="display:none">
+        🧪 <strong>Demo mode:</strong> payments are simulated — no real card is charged. Add a Stripe key to take live payments.
+      </div>
+      <div id="canceledBanner" class="banner banner-error" style="display:none">
+        Your payment was canceled. Your slot is held briefly — you can complete checkout again below.
+      </div>
+
+      <div class="wizard">
+        <div class="steps">
+          <div class="step active" data-step="1"><span class="num">1</span><span class="txt">Service</span></div>
+          <div class="step" data-step="2"><span class="num">2</span><span class="txt">Date &amp; time</span></div>
+          <div class="step" data-step="3"><span class="num">3</span><span class="txt">Details &amp; pay</span></div>
+        </div>
+
+        <!-- Step 1: choose service -->
+        <div class="panel" data-panel="1">
+          <div id="serviceList" class="service-grid">
+            <p class="muted">Loading services…</p>
+          </div>
+          <div class="wizard-actions">
+            <span></span>
+            <button class="btn btn-primary" id="toStep2" disabled>Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: date & time -->
+        <div class="panel" data-panel="2" hidden>
+          <label class="field-label">Pick a date</label>
+          <div class="date-scroller" id="dateScroller"></div>
+          <label class="field-label" style="margin-top:22px">Pick a time</label>
+          <div class="slot-grid" id="slotGrid"><p class="muted">Select a date to see available times.</p></div>
+          <div class="wizard-actions">
+            <button class="btn btn-ghost" data-back="1">← Back</button>
+            <button class="btn btn-primary" id="toStep3" disabled>Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: details + pay -->
+        <div class="panel" data-panel="3" hidden>
+          <div class="booking-layout" style="display:grid; grid-template-columns: 1.4fr 0.9fr; gap: 26px;">
+            <div>
+              <div id="formError" class="banner banner-error" style="display:none"></div>
+              <form id="bookingForm">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="customer_name">Full name *</label>
+                    <input id="customer_name" name="customer_name" required autocomplete="name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input id="phone" name="phone" required autocomplete="tel" placeholder="(555) 123-4567" />
+                  </div>
+                  <div class="form-group full">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" required autocomplete="email" />
+                  </div>
+                  <div class="form-group full">
+                    <label for="address">Service address *</label>
+                    <input id="address" name="address" required autocomplete="street-address" placeholder="123 Main St" />
+                  </div>
+                  <div class="form-group">
+                    <label for="city">City *</label>
+                    <input id="city" name="city" required autocomplete="address-level2" />
+                  </div>
+                  <div class="form-group">
+                    <label for="zip">ZIP *</label>
+                    <input id="zip" name="zip" required autocomplete="postal-code" />
+                  </div>
+                  <div class="form-group full">
+                    <label for="notes">Anything we should know? (optional)</label>
+                    <textarea id="notes" name="notes" placeholder="Gate code, pets, describe the issue, preferred entrance…"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <aside>
+              <div class="summary">
+                <h4>Booking summary</h4>
+                <div class="summary-row"><span class="k">Service</span><span class="v" id="sumService">—</span></div>
+                <div class="summary-row"><span class="k">Date</span><span class="v" id="sumDate">—</span></div>
+                <div class="summary-row"><span class="k">Time</span><span class="v" id="sumTime">—</span></div>
+                <div class="summary-row"><span class="k">Duration</span><span class="v" id="sumDur">—</span></div>
+                <div class="summary-row summary-total"><span class="k">Due today</span><span class="v" id="sumPrice">—</span></div>
+                <button class="btn btn-primary btn-block mt-2" id="payBtn" type="button">
+                  <span id="payBtnText">Confirm &amp; pay</span>
+                </button>
+                <p class="muted center" style="font-size:.8rem; margin:12px 0 0">🔒 Secure checkout. You can reschedule up to 24h before.</p>
+              </div>
+            </aside>
+          </div>
+          <div class="wizard-actions">
+            <button class="btn btn-ghost" data-back="2">← Back</button>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how" style="background:#fff">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">Simple</p><h2>How it works</h2></div>
+      <div class="trust">
+        <div class="item"><div class="big">🧰</div><h4>1. Choose service</h4><p>Repair, maintenance, or a new install — pick what you need.</p></div>
+        <div class="item"><div class="big">📅</div><h4>2. Pick a time</h4><p>See real availability and lock in a slot that works for you.</p></div>
+        <div class="item"><div class="big">💳</div><h4>3. Pay securely</h4><p>Confirm with secure online checkout — no surprises.</p></div>
+        <div class="item"><div class="big">✅</div><h4>4. We show up</h4><p>A certified tech arrives on time, ready to get to work.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services showcase -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">What we do</p><h2>Our services &amp; pricing</h2><p>Transparent, upfront prices. Diagnostic and consult fees apply toward the work.</p></div>
+      <div class="service-grid" id="servicesShowcase"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <div class="brand" style="color:#fff"><span class="logo">🌬️</span> CoolAir HVAC</div>
+        <p style="max-width:34ch">Keeping homes comfortable, one visit at a time. Licensed &amp; insured. HVAC Lic. #CA-000000.</p>
+      </div>
+      <div>
+        <p><strong style="color:#fff">Contact</strong></p>
+        <p>📞 <a href="tel:+18005551234">(800) 555-1234</a><br />✉️ <a href="mailto:service@coolair.example">service@coolair.example</a></p>
+      </div>
+      <div>
+        <p><strong style="color:#fff">Hours</strong></p>
+        <p>Mon–Sat: 8am – 5pm<br />Emergency service available</p>
+        <p style="margin-top:14px"><a href="/admin.html">Staff login →</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
