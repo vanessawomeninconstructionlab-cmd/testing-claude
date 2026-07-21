@@ -1,0 +1,242 @@
+<title>Where's My Project? — Ideal Client Profile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+  :root{
+    --bg:#F7F5F0; --surface:#FFFFFF; --surface2:#EEEAE3;
+    --ink:#1B1B1B; --ink2:#444; --ink3:#888;
+    --blue:#1565C0; --blue-light:#E3F0FC;
+    --teal:#00796B; --teal-light:#E0F2F1;
+    --amber:#E65100; --amber-light:#FFF3E0;
+    --purple:#6A1B9A; --purple-light:#F3E5F5;
+    --red:#C62828; --red-light:#FFEBEE;
+    --border:#DDD8CE; --shadow:0 2px 8px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink2);font-family:'Outfit',sans-serif;line-height:1.6;padding:32px;max-width:1000px;margin:0 auto;font-size:16px}
+  h1,h2,h3{font-family:'Fraunces',serif;color:var(--ink);line-height:1.2}
+  a{color:var(--blue);text-decoration:none}
+
+  .hero{background:linear-gradient(135deg,#1565C0 0%,#00796B 100%);border-radius:18px;padding:42px 38px;color:#fff;margin-bottom:28px}
+  .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72em;color:rgba(255,255,255,.65);font-weight:600}
+  .hero h1{color:#fff;font-size:2.5em;margin:10px 0 8px;font-weight:600}
+  .hero p{color:rgba(255,255,255,.82);font-size:1.08em;max-width:620px}
+  .hero .tags{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+  .hero .tags span{background:rgba(255,255,255,.15);color:#fff;padding:5px 13px;border-radius:20px;font-size:.8em;font-weight:500}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+  .stat .num{font-family:'Fraunces',serif;font-size:1.9em;color:var(--blue);font-weight:700;line-height:1}
+  .stat .lbl{font-size:.78em;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+
+  section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px;margin-bottom:22px;box-shadow:var(--shadow)}
+  .sec-tag{text-transform:uppercase;letter-spacing:.14em;font-size:.72em;font-weight:600;color:var(--teal)}
+  section h2{font-size:1.6em;margin:8px 0 4px}
+  .sub{color:var(--ink3);padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid var(--border)}
+
+  .card{background:var(--surface2);border-left:4px solid var(--blue);border-radius:8px;padding:18px 20px;margin-bottom:14px}
+  .card.teal{border-left-color:var(--teal)}
+  .card.amber{border-left-color:var(--amber)}
+  .card.red{border-left-color:var(--red)}
+  .card.purple{border-left-color:var(--purple)}
+  .card h3{font-size:1.12em;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .card p{font-size:.97em}
+  .card p+p{margin-top:8px}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .badge{font-family:'Outfit',sans-serif;font-size:.66em;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:5px;text-transform:uppercase}
+  .badge-yes{background:var(--teal-light);color:var(--teal)}
+  .badge-no{background:var(--red-light);color:var(--red)}
+  .badge-core{background:var(--amber-light);color:var(--amber)}
+
+  .quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.25em;color:var(--ink);background:var(--amber-light);border-left:4px solid var(--amber);padding:18px 22px;border-radius:8px;margin:16px 0}
+
+  .persona{display:flex;gap:22px;align-items:flex-start;background:linear-gradient(135deg,#F3E5F5 0%,#E3F0FC 100%);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .persona .avatar{flex:0 0 68px;width:68px;height:68px;border-radius:50%;background:var(--purple);color:#fff;font-family:'Fraunces',serif;font-size:1.7em;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .persona .body h3{font-size:1.3em;margin-bottom:2px}
+  .persona .body .role{color:var(--ink3);font-size:.9em;margin-bottom:10px}
+
+  ul.clean{list-style:none;margin-top:6px}
+  ul.clean li{padding:7px 0 7px 26px;position:relative;font-size:.97em;border-bottom:1px solid var(--border)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li:before{content:"▸";position:absolute;left:6px;color:var(--teal);font-weight:700}
+
+  .footer{text-align:center;color:var(--ink3);font-size:.85em;padding:24px 0 8px;line-height:1.8}
+
+  @media(max-width:700px){
+    body{padding:14px}
+    .stats{grid-template-columns:1fr 1fr}
+    .grid-2{grid-template-columns:1fr}
+    .hero h1{font-size:1.8em}
+    .persona{flex-direction:column}
+  }
+</style>
+
+<div class="hero">
+  <div class="eyebrow">Product Development · Ideal Client Profile</div>
+  <h1>"Where's My Project?"</h1>
+  <p>The client-update tool that stops homeowners from texting your contractors 40 times a job — and the exact person who will pay every month to make that stop.</p>
+  <div class="tags">
+    <span>Residential Remodeling</span>
+    <span>Owner-Operators</span>
+    <span>SaaS · $49–99/mo</span>
+    <span>Women-Owned wedge</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num">$500K–2.5M</div><div class="lbl">Annual revenue sweet spot</div></div>
+  <div class="stat"><div class="num">3–8</div><div class="lbl">Jobs running at once</div></div>
+  <div class="stat"><div class="num">3 wk–4 mo</div><div class="lbl">Length of each job</div></div>
+  <div class="stat"><div class="num">2–10</div><div class="lbl">People on the crew</div></div>
+</div>
+
+<section>
+  <div class="sec-tag">The one-sentence ICP</div>
+  <h2>Who you're actually building for</h2>
+  <p class="sub">Say it in a single breath — if you can't, the product gets fuzzy and the marketing gets weak.</p>
+  <div class="quote">A residential remodeling business owner doing $500K–$2.5M a year, running 3–8 long jobs at once with a small crew, who still answers their own phone — and whose homeowners are living in the mess, anxious, and texting them for updates all day.</div>
+  <p>Notice what's <em>not</em> in there: not "all contractors," not "construction." The pain you're curing only gets sharp when four things line up — <strong>long jobs, an anxious homeowner living on-site, multiple projects at once, and an owner who is the bottleneck.</strong> Remove any one of those and the pain gets mild. Your job is to find the person where all four are true.</p>
+</section>
+
+<section>
+  <div class="sec-tag">Make it a person</div>
+  <h2>Meet Dana</h2>
+  <p class="sub">A named persona keeps every future decision honest — "would Dana actually tap this?"</p>
+  <div class="persona">
+    <div class="avatar">D</div>
+    <div class="body">
+      <h3>Dana Reyes</h3>
+      <div class="role">Owner, Reyes Kitchen &amp; Bath Remodeling · 44 · runs a 6-person crew</div>
+      <p>Dana was a project lead for a big remodeler for 12 years before going out on her own 4 years ago. She's got 5 kitchen and bath jobs running right now, all in occupied homes. She's on a jobsite by 7am, drives between three of them a day, does estimates at night, and invoices on Sunday. She has no office manager. Her phone is her business — and it will not stop buzzing. Half the buzzes are homeowners asking "is someone coming today?" and "how's it looking?" She loves the craft and hates feeling behind. Her whole pipeline is referrals, so looking disorganized isn't annoying — it's a threat.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-tag">The pain, in her words</div>
+  <h2>Why Dana feels this more than anyone</h2>
+  <p class="sub">This is the emotional core. Sell the feeling, not the feature.</p>
+  <div class="quote">"I spend more time telling people what I did than doing it. Every homeowner thinks they're my only job. And if I don't text back fast, they think I've disappeared — even though I was at their house yesterday."</div>
+  <div class="grid-2">
+    <div class="card amber"><h3>Long jobs = sustained anxiety</h3><p>A 10-week kitchen means 10 weeks of a homeowner with no sink, wondering every single day if progress is being made. That's weeks of "any update?" — not a one-time question.</p></div>
+    <div class="card amber"><h3>They're living in it</h3><p>The homeowner is stepping over drop cloths to make coffee. The emotional temperature is high. Silence reads as abandonment.</p></div>
+    <div class="card red"><h3>She's the only bottleneck</h3><p>No project manager to absorb the texts. Every interruption lands on the person who's also trying to hang cabinets. The cost of the problem is <em>her</em> time and focus.</p></div>
+    <div class="card red"><h3>Referrals are the whole business</h3><p>Residential lives and dies on word-of-mouth. "She kept me in the loop the whole time" is the review that gets her the next three jobs. Communication IS her marketing.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-tag">Firmographics &amp; psychographics</div>
+  <h2>How to recognize her in the wild</h2>
+  <p class="sub">Concrete filters so you can spot a fit — and screen out a mismatch — in one conversation.</p>
+  <div class="grid-2">
+    <div class="card"><h3>Business shape</h3>
+      <ul class="clean">
+        <li>$500K–$2.5M/yr revenue</li>
+        <li>2–10 person crew, often + a couple subs</li>
+        <li>3–8 concurrent jobs</li>
+        <li>Owner still in the field daily</li>
+        <li>No dedicated office admin or PM</li>
+      </ul>
+    </div>
+    <div class="card teal"><h3>The work</h3>
+      <ul class="clean">
+        <li>Kitchen &amp; bath remodels</li>
+        <li>Home additions / whole-home renos</li>
+        <li>Basement &amp; garage conversions</li>
+        <li>Decks &amp; outdoor living builds</li>
+        <li>Jobs measured in weeks/months, not hours</li>
+      </ul>
+    </div>
+    <div class="card purple"><h3>How she thinks</h3>
+      <ul class="clean">
+        <li>Proud of her craft, protective of reputation</li>
+        <li>Feels perpetually "behind on communication"</li>
+        <li>Wants to look as professional as the big firms</li>
+        <li>Skeptical of "software" — bounced off complex tools</li>
+        <li>Will adopt something only if the crew actually uses it</li>
+      </ul>
+    </div>
+    <div class="card amber"><h3>Where she spends her attention</h3>
+      <ul class="clean">
+        <li>Posts before/afters on Instagram &amp; Facebook</li>
+        <li>In contractor Facebook groups after hours</li>
+        <li>Member of NARI / NAHB Remodelers, maybe BNI</li>
+        <li>On Houzz / Angi for leads</li>
+        <li>Learns from other remodelers, not tech blogs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-tag">Focus discipline</div>
+  <h2>Who is <em>not</em> your client</h2>
+  <p class="sub">Saying no is how the product stays sharp. Every one of these looks tempting and will pull you off course.</p>
+  <div class="grid-2">
+    <div class="card red"><h3><span class="badge badge-no">Not this</span> Production home builders</h3><p>Building new houses nobody lives in yet. Homeowner isn't anxious and on-site — and they already run Buildertrend or Procore.</p></div>
+    <div class="card red"><h3><span class="badge badge-no">Not this</span> Handyman &amp; quick-fix trades</h3><p>Jobs done in a day. No sustained anxiety, no ongoing update loop to solve. Nothing to keep them subscribed.</p></div>
+    <div class="card red"><h3><span class="badge badge-no">Not this</span> Large GCs &amp; commercial</h3><p>They have PMs and admin staff whose literal job is client comms. Their "homeowner" is a facilities manager on a different wavelength.</p></div>
+    <div class="card red"><h3><span class="badge badge-no">Not this</span> Emergency plumbing / HVAC</h3><p>Same-day dispatch-and-done. That's the <em>first-to-accept</em> app you set aside — a different product, a different buyer.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-tag">The competition</div>
+  <h2>What Dana uses today (this is your real rival)</h2>
+  <p class="sub">You're not competing with fancy software. You're competing with a group text and her memory.</p>
+  <div class="card"><h3>Group texts &amp; phone calls <span class="badge badge-core">Real incumbent</span></h3><p>The default. Messy, easy to lose track of, and it's exactly the thing generating the interruptions. Your wedge is "same simplicity, but it works <em>for</em> you."</p></div>
+  <div class="card teal"><h3>CompanyCam</h3><p>Great for jobsite photos — but it's built for the crew and the office, not for keeping the <em>homeowner</em> calm. There's an opening for a homeowner-facing update.</p></div>
+  <div class="card teal"><h3>Buildertrend / Jobber / Houzz Pro</h3><p>Full project-management suites. Powerful, but heavy and pricey — Dana signs up, gets overwhelmed, and quits. Your advantage is doing <em>one thing</em> she'll actually keep using.</p></div>
+  <p style="margin-top:10px"><strong>The strategic read:</strong> the big tools lose small remodelers to complexity. You win by being the thing she can set up in 10 minutes and her crew adopts without training.</p>
+</section>
+
+<section>
+  <div class="sec-tag">Money</div>
+  <h2>Will she pay — and how much?</h2>
+  <p class="sub">Anchor the price against what the problem costs her, not against other apps.</p>
+  <div class="grid-2">
+    <div class="card teal"><h3>Realistic price</h3><p><strong>$49–$99/month per company</strong>, flat. Charge the business, not per crew member — you want the whole crew posting updates, so never make more users cost more.</p></div>
+    <div class="card teal"><h3>The value anchor</h3><p>One referral job is $20K–$40K. "She kept me updated the whole time" earns that review. Framed against a single won job, $79/mo is a rounding error — say it that way.</p></div>
+  </div>
+  <div class="quote">Don't sell "save time." Sell "look like the most on-top-of-it contractor your client has ever hired." That's what she'll pay for.</div>
+</section>
+
+<section>
+  <div class="sec-tag">Your unfair advantage</div>
+  <h2>The women-owned distribution wedge</h2>
+  <p class="sub">You don't just have a product idea — you have a warm audience most founders would kill for.</p>
+  <p>Your first 10 customers are the hardest to get. You already have a room full of them: <strong>women-owned remodeling firms in your WCL network.</strong> That's your beachhead — launch to them, get them using it, collect their words, and let their before/after posts ("here's how I keep my clients in the loop") become your marketing. "Built by a woman in construction, for women running remodeling businesses" is a positioning no incumbent can copy. Broaden to all remodelers later; <em>start</em> where you're already trusted.</p>
+</section>
+
+<section>
+  <div class="sec-tag">From profile to product</div>
+  <h2>What "truly serves" Dana actually requires</h2>
+  <p class="sub">The ICP isn't decoration — it dictates the v1. These features fall directly out of who she is.</p>
+  <div class="card amber"><h3><span class="badge badge-core">Make or break</span> The 10-second crew update</h3><p>A tired framer with dirty gloves, one hand free, standing in a gutted kitchen, must be able to post <em>one photo + one line</em> in seconds — no login maze, no training. If the crew won't do it, the whole product dies. This is your north star.</p></div>
+  <div class="grid-2">
+    <div class="card teal"><h3>Homeowner gets a text, not an app</h3><p>The homeowner should NOT have to download anything. They get a branded text and a simple web link to a clean project timeline. Zero friction on their side.</p></div>
+    <div class="card teal"><h3>"Next up" beats the anxiety</h3><p>Every update carries a one-line "coming next" ("painting tomorrow"). That single line is what actually stops the "any update?" text — it answers the question before it's asked.</p></div>
+    <div class="card teal"><h3>One dashboard, all jobs</h3><p>Dana sees her 5 projects at a glance and which ones have gone quiet — so she looks on top of every one without visiting each.</p></div>
+    <div class="card teal"><h3>It carries her brand</h3><p>Her name and logo on every homeowner update. It should make <em>her</em> look professional — that's the emotional payoff she's buying.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-tag">Before you build anything</div>
+  <h2>3 questions to validate Dana is real</h2>
+  <p class="sub">Ask 10 remodelers these — for the price of coffee — before you spend a dollar on developers.</p>
+  <ul class="clean">
+    <li><strong>"In a typical week, how many times does a client text or call just asking for a status update?"</strong> — If the number's low, you've got the wrong client. If they sigh and say "constantly," you found Dana.</li>
+    <li><strong>"What do you use right now to keep clients in the loop?"</strong> — Listen for "nothing" or "just text them." That's the gap. If they name a tool they love, dig into what it's missing.</li>
+    <li><strong>"If something cut those update texts in half and made you look more professional, what would that be worth per month?"</strong> — Their number tells you your price and whether the pain is real.</li>
+  </ul>
+</section>
+
+<div class="footer">
+  Prepared for Vanessa — July 21, 2026<br>
+  Product: "Where's My Project?" client-update tool · Ideal Client Profile<br>
+  Target: Residential remodeling owner-operators · Women-owned beachhead
+</div>
