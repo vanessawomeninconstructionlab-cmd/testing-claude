@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Painting Bid Scan — Zip 33332 | Week of July 22, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5F0; --surface: #FFFFFF; --surface2: #EEEAE3;
+  --ink: #1B1B1B; --ink2: #444444; --ink3: #888888;
+  --blue: #1565C0; --blue-light: #E3F0FC;
+  --teal: #00796B; --teal-light: #E0F2F1;
+  --amber: #E65100; --amber-light: #FFF3E0;
+  --purple: #6A1B9A; --purple-light: #F3E5F5;
+  --red: #C62828; --red-light: #FFEBEE;
+  --border: #DDD8CE; --shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink2); padding: 24px; line-height: 1.55; }
+.wrap { max-width: 900px; margin: 0 auto; }
+.hero { background: linear-gradient(135deg, #1565C0 0%, #00796B 100%); border-radius: 16px; padding: 44px 40px; color: #fff; margin-bottom: 28px; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72em; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 12px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.3em; line-height: 1.15; margin-bottom: 10px; }
+.hero p { color: rgba(255,255,255,0.7); font-size: 1.02em; max-width: 620px; }
+.hero .tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+.hero .tags span { background: rgba(255,255,255,0.15); padding: 5px 13px; border-radius: 999px; font-size: 0.78em; font-weight: 500; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; box-shadow: var(--shadow); text-align: center; }
+.stat .num { font-family: 'Fraunces', serif; font-size: 1.9em; font-weight: 700; color: var(--blue); }
+.stat .lbl { font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); font-weight: 600; margin-top: 4px; }
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow); }
+.section .tag-label { text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.7em; font-weight: 700; margin-bottom: 8px; }
+.section h2 { font-family: 'Fraunces', serif; color: var(--ink); font-size: 1.55em; margin-bottom: 6px; }
+.section .sub { color: var(--ink3); font-size: 0.94em; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.card { background: var(--surface2); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; border-left: 4px solid var(--blue); }
+.card.private { border-left-color: var(--teal); }
+.card.alertc { border-left-color: var(--amber); background: var(--amber-light); }
+.card h3 { color: var(--ink); font-size: 1.04em; margin-bottom: 6px; font-weight: 600; }
+.card p { font-size: 0.92em; margin-bottom: 8px; }
+.card a { color: var(--blue); font-weight: 600; font-size: 0.9em; text-decoration: none; }
+.card a:hover { text-decoration: underline; }
+.badge { display: inline-block; font-size: 0.68em; font-weight: 700; letter-spacing: 0.06em; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; margin-left: 8px; vertical-align: middle; }
+.badge-urgent { background: var(--red-light); color: var(--red); }
+.badge-verify { background: var(--amber-light); color: var(--amber); }
+.badge-open { background: var(--teal-light); color: var(--teal); }
+.tag { display: inline-block; font-size: 0.68em; font-weight: 700; letter-spacing: 0.06em; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; }
+.tag-gov { background: var(--blue-light); color: var(--blue); }
+.tag-private { background: var(--teal-light); color: var(--teal); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.portal { background: var(--surface2); border-radius: 10px; padding: 14px 16px; }
+.portal h4 { color: var(--ink); font-size: 0.94em; font-weight: 600; margin-bottom: 3px; }
+.portal p { font-size: 0.82em; color: var(--ink3); margin-bottom: 6px; }
+.portal a { color: var(--blue); font-size: 0.84em; font-weight: 600; text-decoration: none; }
+.portal a:hover { text-decoration: underline; }
+.check { display: flex; align-items: flex-start; gap: 10px; background: var(--surface2); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; font-size: 0.92em; }
+.check .box { min-width: 18px; height: 18px; border: 2px solid var(--ink3); border-radius: 4px; margin-top: 2px; }
+.footer { text-align: center; color: var(--ink3); font-size: 0.84em; padding: 24px 0 8px; }
+.footer strong { color: var(--ink2); }
+h2 span.count { color: var(--ink3); font-size: 0.6em; font-weight: 400; }
+@media (max-width: 700px) {
+  .grid-2, .stats { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.7em; }
+  body { padding: 12px; }
+  .section { padding: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Weekly Bid Scan &bull; Week of July 22, 2026</div>
+  <h1>Painting Bid Opportunities<br>Zip 33332 &amp; Surrounding Broward County</h1>
+  <p>Government and private-sector painting contracts open for bid within reach of Southwest Ranches, FL — refreshed every week so nothing slips past a deadline.</p>
+  <div class="tags">
+    <span>NAICS 238320 — Painting Contractors</span>
+    <span>Southwest Ranches, FL 33332</span>
+    <span>~25-Mile Radius</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num">3</div><div class="lbl">Live Leads Found</div></div>
+  <div class="stat"><div class="num">152</div><div class="lbl">Open Broward Co. Bids to Filter</div></div>
+  <div class="stat"><div class="num">18</div><div class="lbl">Portals Monitored</div></div>
+  <div class="stat"><div class="num">238320</div><div class="lbl">Primary NAICS Code</div></div>
+</div>
+
+<div class="section">
+  <div class="tag-label" style="color:var(--blue);">Government — Active Leads</div>
+  <h2>Painting Solicitations Found This Week</h2>
+  <div class="sub">Verified in this week's scan. Portals gate final documents behind free vendor registration — confirm each deadline on the portal before planning your estimate.</div>
+
+  <div class="card">
+    <span class="tag tag-gov">Government</span><span class="badge badge-verify">Confirm Deadline</span>
+    <h3>Exterior Painting — Pembroke Pines Charter School West Campus</h3>
+    <p>City of Pembroke Pines is seeking bids from qualified firms to paint the exterior of the Charter School West Campus at 18500 Pembroke Rd, Pembroke Pines, FL 33029 — about 15 minutes from 33332. Public bid opening held at 2:30 PM on the submission date. Register free on the City's OpenGov portal to see documents and the exact due date.</p>
+    <a href="https://procurement.opengov.com/portal/pembrokepines/projects/150072">View solicitation on OpenGov →</a>
+  </div>
+
+  <div class="card">
+    <span class="tag tag-gov">Government</span><span class="badge badge-verify">Confirm Deadline</span>
+    <h3>Water Treatment Plant Unit B — Renovation &amp; Painting</h3>
+    <p>City of Pembroke Pines seeks bids to furnish all labor, equipment, and materials for the renovation and painting of the existing Water Treatment Plant Unit B. Industrial/utility painting scope — typically fewer bidders, better margins for firms that can meet the specs.</p>
+    <a href="https://procurement.opengov.com/portal/pembrokepines/projects/174183">View solicitation on OpenGov →</a>
+  </div>
+
+  <div class="card">
+    <span class="tag tag-gov">Government</span><span class="badge badge-open">Fleet / Specialty</span>
+    <h3>Paint &amp; Body Repairs for BCT Bus Fleet (Ref. TRN2130788B1)</h3>
+    <p>Broward County Transit solicitation for paint and body repair services on the county bus fleet (FTA-funded). Specialty scope — relevant if you do or partner on commercial/fleet coating work. Found among Broward County's currently open solicitations.</p>
+    <a href="https://broward.bonfirehub.com/portal/?tab=openOpportunities">Find it on Broward BPRO (Bonfire) →</a>
+  </div>
+
+  <div class="card alertc">
+    <span class="tag tag-gov">Government</span><span class="badge badge-urgent">Do This Week</span>
+    <h3>152 Open Broward County Solicitations — Filter for Painting</h3>
+    <p>Broward County's BPRO portal currently lists 152 open opportunities. Painting scopes are often buried inside "facilities maintenance," "building renovation," or "waterproofing" bids. Search these keywords on the portal: <strong>paint, coating, waterproofing, stucco, sealant, renovation</strong>.</p>
+    <a href="https://broward.bonfirehub.com/portal/?tab=openOpportunities">Open the BPRO portal →</a>
+  </div>
+</div>
+
+<div class="section">
+  <div class="tag-label" style="color:var(--blue);">Government — Where to Look Every Week</div>
+  <h2>Your Portal Watchlist <span class="count">(check weekly, ~15 min)</span></h2>
+  <div class="sub">Every public agency that buys painting work within reach of 33332, with the exact portal it posts to. Register once on each platform (all free) and turn on email alerts for "painting" so bids come to you between scans.</div>
+  <div class="grid-2">
+    <div class="portal"><h4>Town of Southwest Ranches (your town)</h4><p>Posts to DemandStar; formal bids ≥ $25,000. Small vendor pool = high win odds.</p><a href="https://www.demandstar.com/app/agencies/florida/town-of-southwest-ranches/procurement-opportunities/2b49b9a7-744a-49b4-a581-a9d0db77cfdb/">DemandStar page →</a><br><a href="https://www.southwestranches.org/procurement/">Town procurement page →</a></div>
+    <div class="portal"><h4>Broward County (BPRO / Bonfire)</h4><p>The biggest local buyer — parks, libraries, airports, transit facilities.</p><a href="https://broward.bonfirehub.com/portal/?tab=openOpportunities">BPRO open opportunities →</a></div>
+    <div class="portal"><h4>Broward County Public Schools</h4><p>200+ schools that repaint on cycles. Posts to Public Purchase.</p><a href="https://www.publicpurchase.com/gems/browardschools,fl/buyer/public/home">Public Purchase portal →</a><br><a href="https://www.browardschools.com/bcps-departments/procurement/district-contracts-bids">District contracts &amp; bids →</a></div>
+    <div class="portal"><h4>City of Pembroke Pines</h4><p>Posts to OpenGov — two painting-related bids live right now (see above).</p><a href="https://www.ppines.com/667/Current-Bids">Current bids page →</a></div>
+    <div class="portal"><h4>City of Miramar</h4><p>Borders 33332 to the south. Posts to DemandStar.</p><a href="https://www.demandstar.com/app/agencies/florida/city-of-miramar/procurement-opportunities/33ca9564-7adf-4f26-ad6e-a5a8930f99c7">DemandStar page →</a></div>
+    <div class="portal"><h4>City of Cooper City</h4><p>Borders 33332 to the east. Posts to DemandStar.</p><a href="https://www.demandstar.com/app/agencies/florida/city-of-cooper-city-fl/procurement-opportunities/383624b5-8cab-4161-a6e0-017612cada00/">DemandStar page →</a></div>
+    <div class="portal"><h4>City of Fort Lauderdale</h4><p>Largest city in the county. Posts to Public Purchase.</p><a href="https://www.publicpurchase.com/gems/fortlauderdale,fl/buyer/public/home">Public Purchase portal →</a></div>
+    <div class="portal"><h4>City of Tamarac</h4><p>Posts to Bids &amp; Tenders platform.</p><a href="https://www.tamarac.gov/1158/Anticipated-Procurement-Opportunities">Anticipated procurements →</a></div>
+    <div class="portal"><h4>Broward County Housing Authority</h4><p>Multifamily repaint cycles. No open solicitations this week — keep watching.</p><a href="https://vrapp.vendorregistry.com/Bids/View/BidsList?buyerId=fa7c46a4-0264-4ed8-a964-aa745868d2ca">Vendor Registry list →</a></div>
+    <div class="portal"><h4>Broward Health &amp; Memorial Healthcare</h4><p>Hospital systems with constant facility maintenance painting.</p><a href="https://vendor.browardhealth.org/pages/current-opportunities">Broward Health opportunities →</a><br><a href="https://www.demandstar.com/app/agencies/florida/memorial-healthcare-system-south-broward-hospital-district/procurement-opportunities/eb67bdda-3955-4921-aa02-a208fd0c0a5a/">Memorial (DemandStar) →</a></div>
+    <div class="portal"><h4>Miami-Dade County + MDCPS</h4><p>30 min south; huge volume. County uses INFORMS; schools have their own portal.</p><a href="https://www.miamidade.gov/apps/ISD/stratproc/Home/CurrentSolicitations">County solicitations →</a><br><a href="http://procurement.dadeschools.net/bidsol/asp/bid_portal.htm">MDCPS bid portal →</a></div>
+    <div class="portal"><h4>State of Florida + Federal</h4><p>State: MyFloridaMarketPlace VBS. Federal: SAM.gov, NAICS 238320 + Florida filter.</p><a href="https://vendor.myfloridamarketplace.com/">MFMP Vendor Portal →</a><br><a href="https://sam.gov/search/?index=opp&keywords=painting&sfm%5Bstatus%5D%5Bis_active%5D=true">SAM.gov painting search →</a></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="tag-label" style="color:var(--teal);">Private Sector</div>
+  <h2>Private &amp; Commercial Opportunities</h2>
+  <div class="sub">Private work near 33332 is driven hard right now by Florida's condo reserve law — associations must fund and document exterior maintenance (including painting) with reserve deadlines hitting through June 30, 2026, and boards that deferred are catching up on compressed schedules.</div>
+
+  <div class="card private">
+    <span class="tag tag-private">Private</span><span class="badge badge-urgent">Hot Market</span>
+    <h3>Condo &amp; HOA Repaint Wave — Broward County</h3>
+    <p>Florida's updated reserve requirements make exterior painting a documented maintenance priority, and boards typically solicit 3–5 proposals from licensed, insured firms with verifiable association experience. Target the big community managers who run those bid processes: <strong>FirstService Residential, Castle Group, KW Property Management, Campbell Property Management</strong> — ask each for placement on their approved-vendor / bid list for Broward communities.</p>
+  </div>
+
+  <div class="card private">
+    <span class="tag tag-private">Private</span>
+    <h3>Commercial Bid Platforms — Set Alerts Once, Get Leads Weekly</h3>
+    <p>These platforms carry private commercial painting scopes (new construction and repaint) for South Florida. Free tiers exist on several:</p>
+    <p><a href="https://planhub.com/">PlanHub →</a> &nbsp;|&nbsp; <a href="https://www.constructconnect.com/">ConstructConnect →</a> &nbsp;|&nbsp; <a href="https://www.buildingconnected.com/">BuildingConnected →</a> &nbsp;|&nbsp; <a href="https://www.thebluebook.com/">The Blue Book →</a> &nbsp;|&nbsp; <a href="https://www.demandstar.com/app/browse-bids/states/florida/metro-areas/miami-fort-lauderdale-pompano-beach">DemandStar Miami–Ft. Lauderdale metro →</a></p>
+  </div>
+
+  <div class="card private">
+    <span class="tag tag-private">Subcontract Opp</span>
+    <h3>GC Subcontractor Lists — South Broward</h3>
+    <p>General contractors running school, municipal, and multifamily jobs in southwest Broward continually need painting subs. Get on prequalification lists at: <strong>Moss &amp; Associates (Fort Lauderdale), ANF Group (Davie), Kaufman Lynn (Delray/Broward work), Miller Construction (Fort Lauderdale), West Construction (Lantana, does municipal work county-wide)</strong>. One email + capability statement each.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="tag-label" style="color:var(--amber);">This Week</div>
+  <h2>Action Checklist — Week of July 22</h2>
+  <div class="sub">Do these in order. Items 1–3 directly chase live money.</div>
+  <div class="check"><div class="box"></div><div><strong>Register on Pembroke Pines OpenGov portal</strong> and pull documents + due dates for the Charter School exterior painting bid and the WTP Unit B renovation &amp; painting bid.</div></div>
+  <div class="check"><div class="box"></div><div><strong>Search Broward BPRO</strong> for "paint," "coating," and "waterproofing" across the 152 open solicitations; flag anything due in the next 30 days.</div></div>
+  <div class="check"><div class="box"></div><div><strong>Create DemandStar account</strong> (free for your home agencies) and follow: Southwest Ranches, Miramar, Cooper City, Memorial Healthcare, Broward College.</div></div>
+  <div class="check"><div class="box"></div><div><strong>Turn on saved-search alerts</strong>: SAM.gov (NAICS 238320, Florida) and Public Purchase (Broward Schools + Fort Lauderdale).</div></div>
+  <div class="check"><div class="box"></div><div><strong>Send one vendor-list request</strong> to a community management firm (start with FirstService Residential Broward office).</div></div>
+  <div class="check"><div class="box"></div><div><strong>If not yet done:</strong> confirm SAM.gov registration is active and check eligibility for Broward County SBE certification — it unlocks sheltered-market county bids.</div></div>
+</div>
+
+<div class="footer">
+  Prepared for <strong>prosperamamapodcast@gmail.com</strong> — July 22, 2026<br>
+  Painting (NAICS 238320) | Southwest Ranches, FL 33332 | ~25-mile radius<br>
+  <em>Weekly Painting Bid Scan — regenerated every Monday</em>
+</div>
+
+</div>
+</body>
+</html>
