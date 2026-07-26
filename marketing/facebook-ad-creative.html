@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:#eaf3fa; overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 88% -8%, rgba(255,150,60,.36), transparent 42%),
+      radial-gradient(120% 120% at 8% 108%, rgba(24,169,214,.42), transparent 46%),
+      linear-gradient(158deg, #082033 0%, #0b2f47 52%, #071a2b 100%);
+    position:relative;
+  }
+  /* decorative cool glyphs */
+  .glyph { position:absolute; color:rgba(255,255,255,.06); font-weight:800; line-height:1; }
+  .g1 { top:6%; left:-2%; font-size:230px; transform:rotate(-12deg); }
+  .g2 { bottom:4%; right:-3%; font-size:200px; transform:rotate(10deg); }
+
+  .ad { position:relative; z-index:2; height:100%; display:flex; flex-direction:column;
+        padding:70px 68px; }
+  .brand { display:flex; align-items:center; gap:16px; }
+  .brand .mark { width:66px; height:66px; border-radius:18px; display:grid; place-items:center; font-size:34px;
+    background:linear-gradient(150deg,#25b7dd,#0b6f92); box-shadow:0 12px 30px -8px rgba(0,0,0,.5); }
+  .brand .name { font-size:30px; font-weight:800; letter-spacing:-.02em; }
+  .brand .name small { display:block; font-size:15px; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:#8fc3dd; margin-top:3px; }
+
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .eyebrow { display:inline-flex; align-items:center; gap:10px; align-self:flex-start;
+    background:rgba(255,150,60,.16); border:1.5px solid rgba(255,170,90,.5); color:#ffcb96;
+    padding:11px 20px; border-radius:999px; font-size:20px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+  h1 { font-size:96px; line-height:.98; letter-spacing:-.035em; font-weight:800; margin:30px 0 8px; color:#fff;
+       text-wrap:balance; }
+  h1 .hot { background:linear-gradient(100deg,#ffb057,#ff7a3c); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .offer { display:flex; align-items:baseline; gap:18px; margin:26px 0 6px; }
+  .offer .price { font-size:104px; font-weight:800; letter-spacing:-.04em; color:#fff; }
+  .offer .price .dollar { font-size:56px; vertical-align:super; }
+  .offer .desc { font-size:34px; font-weight:700; color:#dbeefa; line-height:1.15; }
+  .offer .desc small { display:block; font-size:20px; font-weight:600; color:#8fc3dd; }
+
+  .bullets { display:flex; flex-direction:column; gap:16px; margin-top:34px; }
+  .bullets li { list-style:none; display:flex; align-items:center; gap:16px; font-size:29px; font-weight:600; color:#eaf3fa; }
+  .bullets .ck { width:40px; height:40px; border-radius:50%; background:rgba(53,214,160,.18);
+    border:1.5px solid rgba(53,214,160,.55); color:#4fe3b1; display:grid; place-items:center; font-size:22px; flex:none; }
+
+  .foot { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .cta { display:inline-flex; align-items:center; gap:14px; background:linear-gradient(100deg,#ff9445,#f2662a);
+    color:#fff; font-size:34px; font-weight:800; padding:24px 40px; border-radius:18px; letter-spacing:-.01em;
+    box-shadow:0 20px 40px -12px rgba(242,102,42,.6); }
+  .trust { text-align:right; }
+  .trust .stars { font-size:26px; letter-spacing:2px; color:#ffd36b; }
+  .trust .stars b { color:#fff; }
+  .trust .phone { font-size:30px; font-weight:800; color:#fff; margin-top:6px; letter-spacing:.01em; }
+  .trust .phone small { display:block; font-size:17px; font-weight:600; color:#8fc3dd; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+  <div class="glyph g1">❄</div>
+  <div class="glyph g2">❄</div>
+  <div class="ad">
+    <div class="brand">
+      <div class="mark">🌬️</div>
+      <div class="name">CoolAir HVAC<small>Heating · Cooling · Air Quality</small></div>
+    </div>
+
+    <div class="mid">
+      <span class="eyebrow">☀ Summer A/C Special</span>
+      <h1>Beat the <span class="hot">heat</span>—<br>before it beats you.</h1>
+      <div class="offer">
+        <div class="price"><span class="dollar">$</span>89</div>
+        <div class="desc">Complete A/C Tune-Up<small>21-point inspection · runs cooler, costs less</small></div>
+      </div>
+      <ul class="bullets">
+        <li><span class="ck">✓</span> Certified, licensed &amp; insured technicians</li>
+        <li><span class="ck">✓</span> Same-week appointments — no phone tag</li>
+        <li><span class="ck">✓</span> Book &amp; pay online in under 2 minutes</li>
+      </ul>
+    </div>
+
+    <div class="foot">
+      <div class="cta">Book Now <span style="font-size:30px">→</span></div>
+      <div class="trust">
+        <div class="stars">★★★★★ <b>4.9</b></div>
+        <div class="phone">(800) 555-1234<small>or book online</small></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
